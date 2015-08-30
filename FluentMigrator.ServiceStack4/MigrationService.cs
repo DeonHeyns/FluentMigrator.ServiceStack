@@ -21,7 +21,8 @@ using System.Threading.Tasks;
 
 namespace FluentMigrator.ServiceStack
 {
-    [Restrict(LocalhostOnly=true)]
+    [Authenticate(ApplyTo.All)]
+    [RequiredRole("Admin")]
     public class MigrationService : Service
     {
         internal static Assembly Assembly { get; set; }
@@ -129,7 +130,7 @@ namespace FluentMigrator.ServiceStack
             {
                 Database = database,
                 Connection = cs,
-                Target = Assembly.Location,
+                Targets = new[] { Assembly.Location },
                 PreviewOnly = previewOnly,
                 Task = task,
                 Version = version ?? 0,

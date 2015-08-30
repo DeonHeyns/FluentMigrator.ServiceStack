@@ -62,13 +62,13 @@ myApp.controller('MigrationCtrl', function ($scope, $http) {
             });
     }
 
-    $scope.ApplyMigration = function (migration, options) {        
+    $scope.ApplyMigration = function (migration, options) {
         $scope.isBusy = true;
         $scope.output = "";
         var requestURL;
 
         if (migration != null) {
-            requestURL = baseUrl + migration.Version;
+            requestURL = baseUrl + '/' + migration.Version;
         } else {
             var migration = {};
             requestURL = baseUrl;
@@ -89,11 +89,12 @@ myApp.controller('MigrationCtrl', function ($scope, $http) {
         }
 
         var params = "TimeoutSeconds=" + ($scope.timeOut * 60) + "&PreviewOnly=" + $scope.previewSelection;
-        if($scope.customDatabaseConnString) params += "&ConnectionString=" + encodeURIComponent($scope.customDatabaseConnString);
+        if ($scope.customDatabaseConnString) params += "&ConnectionString=" + encodeURIComponent($scope.customDatabaseConnString);
         params = params.replace(/%20/g, '+');
 
         if (options == "rollback") {
             console.log("Begining ROLLBACK with params: " + params);
+            requestURL = requestURL + "?" + params;
             xhr.open("DELETE", requestURL, true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.send(params);

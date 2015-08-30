@@ -174,3 +174,5 @@ FakesAssemblies/
 *.db
 *.orig
 *.nupkg
+
+.vs/
