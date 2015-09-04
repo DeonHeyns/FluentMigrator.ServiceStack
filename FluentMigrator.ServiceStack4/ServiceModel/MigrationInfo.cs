@@ -8,6 +8,9 @@ using ServiceStack.ServiceHost;
 namespace FluentMigrator.ServiceStack.ServiceModel
 {
     [Alias("VersionInfo")]
+#if !V3
+    [Exclude(Feature.Soap)]
+#endif
     public class MigrationInfo : IReturn<MigrationInfoResponse>
     {
         public long? Version { get; set; }

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using ServiceStack;
+using ServiceStack.DataAnnotations;
+
 #if V3
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface.ServiceModel;
@@ -7,6 +9,9 @@ using ServiceStack.ServiceInterface.ServiceModel;
 
 namespace FluentMigrator.ServiceStack.ServiceModel
 {
+#if !V3
+    [Exclude(Feature.Soap)]
+#endif
     public sealed class MigrationInfoResponse : IHasResponseStatus
     {
         public List<MigrationInfo> Migrations { get; set; }
